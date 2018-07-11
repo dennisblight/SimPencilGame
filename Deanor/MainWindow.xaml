@@ -1,0 +1,41 @@
+﻿<Window x:Class="Deanor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Deanor"
+        xmlns:ctrl="clr-namespace:Deanor.Controls"
+        mc:Ignorable="d" Background="{StaticResource SuedeTextureBrush}"
+        Title="MainWindow" Height="600" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <Button Width="100" Content="Render" Click="Button_Click"/>
+            <Button Click="ToggleButton_Checked">Toggle Highlight</Button>
+            <RadioButton GroupName="PrevColor" Checked="RadioButton_Checked">
+                Null</RadioButton>
+            <RadioButton GroupName="PrevColor" Checked="RadioButton_Checked">
+                <RadioButton.Tag>
+                    <Color>Yellow</Color>
+                </RadioButton.Tag>
+                Yellow
+            </RadioButton>
+            <RadioButton GroupName="PrevColor" Checked="RadioButton_Checked">
+                <RadioButton.Tag>
+                    <Color>Green</Color>
+                </RadioButton.Tag>
+                Green
+            </RadioButton>
+        </StackPanel>
+        <ctrl:GraphControl x:Name="graph" Grid.Row="1"
+                           Foreground="Wheat"
+                           PreviewColor="AliceBlue"
+                           SpreadDistance="200"
+                           VerticesSize="30"
+                           Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"
+                           VerticesCount="9"/>
+    </Grid>
+</Window>

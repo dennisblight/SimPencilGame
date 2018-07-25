@@ -10,14 +10,18 @@ namespace Deanor.Controls
 {
     public partial class VerticeControl : UserControl, IVertice<int>
     {
+        private readonly string id;
         private readonly List<IEdge<int>> edges;
+
+        public string ID => id;
 
         public IList<IEdge<int>> Edges => edges;
 
-        public VerticeControl()
+        public VerticeControl(char id)
         {
             InitializeComponent();
             edges = new List<IEdge<int>>();
+            this.id = id.ToString();
         }
 
         public IEdge<int> Connect(IVertice<int> vertice, int cost)

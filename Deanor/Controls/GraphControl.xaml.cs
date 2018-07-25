@@ -18,10 +18,10 @@ namespace Deanor.Controls
     public partial class GraphControl : UserControl, IGraph<int>
     {
         private const int MinVertices = 4;
-        private const int MaxVertices = 9;
+        private const int MaxVertices = 15;
         private const int VerticeZIndex = 100;
         private const int SupportLineZIndex = 80;
-        private const int EdgesZIndex = 0;
+        protected const int EdgesZIndex = 0;
 
         public static readonly DependencyProperty VerticesCountProperty;
         public static readonly DependencyProperty VerticesSizeProperty;
@@ -112,8 +112,9 @@ namespace Deanor.Controls
 
         private bool rendered;
         private bool snapped;
-        private VerticeControl verticeOrigin;
-        private VerticeControl verticeAdjacent;
+        private Tuple<VerticeControl, VerticeControl> dropped;
+        protected VerticeControl verticeOrigin;
+        protected VerticeControl verticeAdjacent;
         internal EdgeControl supportLine;
 
         public GraphControl()
@@ -121,28 +122,30 @@ namespace Deanor.Controls
             InitializeComponent();
         }
 
-        public void Render()
+        public virtual void Render()
         {
             if (!rendered)
             {
                 vertices = new List<IVertice<int>>(VerticesCount);
+                var idx = 0;
                 foreach (var pt in SpreadPoints())
                 {
-                    var vertice = new VerticeControl();
+                    var vertice = new VerticeControl((char)(idx + 'A'));
                     vertice.MouseLeave += VerticeControl_MouseLeave;
+                    vertice.PreviewMouseLeftButtonUp += VerticeControl_PreviewMouseLeftButtonUp;
                     vertice.MouseLeftButtonUp += VerticeControl_MouseLeftButtonUp;
                     vertice.InputStateChanged += VerticeControl_InputStateChanged;
                     vertice.IsEnabledChanged += VerticeControl_IsEnabledChanged;
                     vertice.CanvasLeft = pt.X;
                     vertice.CanvasTop = pt.Y;
                     Panel.SetZIndex(vertice, VerticeZIndex);
-                    //vertice.PreviewColor = Colors.AliceBlue;
-                    vertice.SetBinding(VerticeControl.BackgroundProperty, new Binding("Background") { Source = this });
-                    vertice.SetBinding(VerticeControl.ForegroundProperty, new Binding("Foreground") { Source = this, Converter = new CloneConverter() });
-                    vertice.SetBinding(VerticeControl.SizeProperty, new Binding("VerticesSize") { Source = this });
+                    vertice.SetBinding(VerticeControl.BackgroundProperty, new Binding("Background") { Source = this, Mode = BindingMode.OneTime });
+                    vertice.SetBinding(VerticeControl.ForegroundProperty, new Binding("Foreground") { Source = this, Mode = BindingMode.OneTime, Converter = new CloneConverter() });
+                    vertice.SetBinding(VerticeControl.SizeProperty, new Binding("VerticesSize") { Source = this, Mode = BindingMode.OneTime });
                     vertice.SetBinding(VerticeControl.PreviewColorProperty, new Binding("PreviewColor") { Source = this });
                     vertices.Add(vertice);
                     canvas.Children.Add(vertice);
+                    idx++;
                 }
 
                 edges = new List<IEdge<int>>((VerticesCount * (VerticesCount - 1)) / 2);
@@ -164,11 +167,12 @@ namespace Deanor.Controls
                             var binding = new Binding("VerticesSize")
                             {
                                 Source = this,
+                                Mode = BindingMode.OneTime,
                                 Converter = new SizeRatioConverter() { Ratio = 0.2 }
                             };
                             edgeControl.SetBinding(EdgeControl.SizeProperty, binding);
-                            edgeControl.SetBinding(EdgeControl.ForegroundProperty, new Binding("Foreground") { Source = this });
-                            edgeControl.CostChanged += Edge_CostChanged;
+                            edgeControl.SetBinding(EdgeControl.ForegroundProperty, new Binding("Foreground") { Source = this, Mode = BindingMode.OneTime, Converter = new CloneConverter() });
+                            //edgeControl.CostChanged += Edge_CostChanged;
                             canvas.Children.Add(edgeControl);
                             edges.Add(edgeControl);
                         }
@@ -187,15 +191,25 @@ namespace Deanor.Controls
                     supportLine.SetBinding(EdgeControl.SizeProperty, binding);
                     supportLine.SetBinding(EdgeControl.ForegroundProperty, new Binding("PreviewBrush") { Source = this });
                     supportLine.Highlighted = true;
+                    supportLine.Visibility = Visibility.Hidden;
                     canvas.Children.Add(supportLine);
                 }
                 rendered = true;
             }
         }
 
+        private void VerticeControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if(dropped != null)
+            {
+                VerticeDrop(dropped.Item1, dropped.Item2);
+                dropped = null;
+            }
+        }
+
         private void VerticeControl_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if(sender is VerticeControl vc)
+            if(IsEnabled && sender is VerticeControl vc)
             {
                 if(vc.IsEnabled)
                 {
@@ -208,11 +222,6 @@ namespace Deanor.Controls
                     canvas.Children.Add(vc);
                 }
             }
-        }
-
-        private void Edge_CostChanged(object sender, RoutedPropertyChangedEventArgs<int> e)
-        {
-            //throw new NotImplementedException();
         }
 
         private void Grid_MouseMove(object sender, MouseEventArgs e)
@@ -247,24 +256,43 @@ namespace Deanor.Controls
             }
         }
 
-        private void VerticeControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void VerticeControl_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             if (verticeOrigin != null && verticeOrigin != sender)
             {
                 var vertice = sender as VerticeControl;
                 // transisi dari NODE_HOVERED ke ORIGIN
-                VerticeDrop(verticeOrigin, vertice);
+                //VerticeDrop(verticeOrigin, vertice);
+                if (this.FindEdge(verticeOrigin, vertice) is EdgeControl edge)
+                {
+                    if (lastRenderedEdge != null)
+                    {
+                        Panel.SetZIndex(lastRenderedEdge, EdgesZIndex);
+                        canvas.Children.Remove(lastRenderedEdge);
+                        canvas.Children.Add(lastRenderedEdge);
+                    }
+                    edge.Foreground = supportLine.Foreground;
+                    verticeOrigin.ApplyPreviewColor();
+                    vertice.ApplyPreviewColor();
+                    Panel.SetZIndex(edge, EdgesZIndex + 1);
+                    lastRenderedEdge = edge;
+                    ReleaseSnap();
+                }
+                dropped = new Tuple<VerticeControl, VerticeControl>(verticeOrigin, vertice);
                 Origin();
-                if (vertice.IsMouseOver)
+                if (IsEnabled)
                 {
-                    vertice.InputState = InputState.Hovered;
+                    if (vertice.IsMouseOver)
+                    {
+                        vertice.InputState = InputState.Hovered;
+                    }
+                    else
+                    {
+                        vertice.InputState = InputState.Origin;
+                    }
                 }
-                else
-                {
-                    vertice.InputState = InputState.Origin;
-                }
+                //else e.Handled = true;
             }
-            ReleaseSnap();
         }
 
         private void VerticeControl_InputStateChanged(object sender, RoutedPropertyChangedEventArgs<InputState> e)
@@ -284,6 +312,7 @@ namespace Deanor.Controls
                         supportLine.Y1 = vertice.CanvasTop;
                         supportLine.X2 = vertice.CanvasLeft;
                         supportLine.Y2 = vertice.CanvasTop;
+                        supportLine.Visibility = Visibility.Visible;
                     }
                     break;
                 case InputState.Hovered:
@@ -308,30 +337,15 @@ namespace Deanor.Controls
             supportLine.X2 = 0;
             supportLine.Y1 = 0;
             supportLine.Y2 = 0;
+            supportLine.Visibility = Visibility.Hidden;
             //verticeAdjacent = null;
         }
 
-        private EdgeControl lastRenderedEdge;
+        protected EdgeControl lastRenderedEdge;
 
-        private void VerticeDrop(VerticeControl origin, VerticeControl adjecent)
+        protected virtual void VerticeDrop(VerticeControl origin, VerticeControl adjacent)
         {
-            supportLine.X1 = 0;
-            supportLine.X2 = 0;
-            supportLine.Y1 = 0;
-            supportLine.Y2 = 0;
-            if(this.FindEdge(origin, adjecent) is EdgeControl edge)
-            {
-                if(lastRenderedEdge != null)
-                {
-                    Panel.SetZIndex(lastRenderedEdge, EdgesZIndex);
-                    canvas.Children.Remove(lastRenderedEdge);
-                    canvas.Children.Add(lastRenderedEdge);
-                }
-                edge.Foreground = supportLine.Foreground;
-                Panel.SetZIndex(edge, EdgesZIndex + 1);
-                lastRenderedEdge = edge;
-                ReleaseSnap();
-            }
+            
         }
 
         private void Snap(VerticeControl vertice)

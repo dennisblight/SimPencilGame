@@ -1,0 +1,371 @@
+﻿<UserControl x:Class="Deanor.Pages.SettingSection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ctrl="clr-namespace:Deanor.Controls"
+             mc:Ignorable="d" Background="{StaticResource SnowTextureBrush}"
+             d:DesignHeight="500" d:DesignWidth="800">
+    <UserControl.RenderTransform>
+        <TranslateTransform/>
+    </UserControl.RenderTransform>
+    <UserControl.Resources>
+        <Style x:Key="{x:Type TextBlock}" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI Black"/>
+        </Style>
+        <Style x:Key="PartStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="10 0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10 0"/>
+        </Style>
+        <Style x:Key="GlyphPartStyle" TargetType="TextBlock" BasedOn="{StaticResource PartStyle}">
+            <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        <Style x:Key="TextPartStyle" TargetType="TextBlock" BasedOn="{StaticResource PartStyle}">
+            <Setter Property="FontFamily" Value="Segoe UI Black"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+        <Style x:Key="{x:Type Button}" TargetType="Button">
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+        <Style x:Key="GhostRadioButton" TargetType="{x:Type RadioButton}">
+            <Setter Property="FontFamily" Value="Segoe UI Black"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="10 3 10 7"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border CornerRadius="2" BorderThickness="0">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup>
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition From="Normal" To="MouseOver" GeneratedDuration="0:0:0.2"/>
+                                        <VisualTransition From="MouseOver" To="Normal" GeneratedDuration="0:0:0.2"/>
+                                        <VisualTransition From="Checked" To="Normal" GeneratedDuration="0:0:0.2"/>
+                                        <VisualTransition From="MouseOver" To="Pressed" GeneratedDuration="0:0:0.1"/>
+                                        <VisualTransition From="Pressed" To="MouseOver" GeneratedDuration="0:0:0.1"/>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="HoverRectangle"
+                                                Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                To="1" Duration="0:0:0.2">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="HoverRectangle"
+                                                Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                To="0.3" Duration="0:0:0.2">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetProperty="(RadioButton.Foreground).(SolidColorBrush.Color)"
+                                                To="White" Duration="0:0:0.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <SineEase EasingMode="EaseIn"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="HoverRectangle"
+                                                Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                To="1" Duration="0:0:0.2">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="HoverRectangle"
+                                                Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                To="1" Duration="0:0:0.2">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Checked">
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetProperty="(RadioButton.Foreground).(SolidColorBrush.Color)"
+                                                To="White" Duration="0:0:0.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <SineEase EasingMode="EaseIn"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="HoverRectangle"
+                                                Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                                To="1" Duration="0:0:0.2">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="HoverRectangle"
+                                                Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                To="1" Duration="0:0:0.2">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid ClipToBounds="True" Background="#01000000">
+                                <Rectangle x:Name="HoverRectangle" Fill="#00a651" RenderTransformOrigin="0.5 1">
+                                    <Rectangle.RenderTransform>
+                                        <ScaleTransform ScaleX="0" ScaleY="0.3"/>
+                                    </Rectangle.RenderTransform>
+                                </Rectangle>
+                                <Grid Margin="{TemplateBinding Padding}" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="CustomRadioButton" TargetType="{x:Type RadioButton}">
+            <Setter Property="Width" Value="50"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontFamily" Value="Segoe UI Black"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border BorderThickness="0.5 0" BorderBrush="#77ee1d25">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup Name="CommonStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition From="Normal" To="MouseOver" GeneratedDuration="0:0:0.2"/>
+                                        <VisualTransition From="MouseOver" To="Normal" GeneratedDuration="0:0:0.2"/>
+                                        <VisualTransition From="Checked" To="Normal" GeneratedDuration="0:0:0.2"/>
+                                        <VisualTransition From="MouseOver" To="Pressed" GeneratedDuration="0:0:0.1"/>
+                                        <VisualTransition From="Pressed" To="MouseOver" GeneratedDuration="0:0:0.1"/>
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetProperty="(RadioButton.Foreground).(SolidColorBrush.Color)"
+                                                To="White" Duration="0:0:0.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <SineEase EasingMode="EaseIn"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="HoverRectangle"
+                                                Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                To="1" Duration="0:0:0.2">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetProperty="(RadioButton.Foreground).(SolidColorBrush.Color)"
+                                                To="White" Duration="0:0:0"/>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="HoverRectangle"
+                                                Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                To="1" Duration="0:0:0"/>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="PressedRectangle"
+                                                Storyboard.TargetProperty="Opacity"
+                                                To="0.3" Duration="0:0:0.1" FillBehavior="HoldEnd">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <ExponentialEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Checked">
+                                        <Storyboard>
+                                            <ColorAnimation
+                                                Storyboard.TargetProperty="(RadioButton.Foreground).(SolidColorBrush.Color)"
+                                                To="White" Duration="0:0:0.2">
+                                                <ColorAnimation.EasingFunction>
+                                                    <SineEase EasingMode="EaseIn"/>
+                                                </ColorAnimation.EasingFunction>
+                                            </ColorAnimation>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="HoverRectangle"
+                                                Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                                To="1" Duration="0:0:0.2">
+                                                <DoubleAnimation.EasingFunction>
+                                                    <PowerEase EasingMode="EaseOut"/>
+                                                </DoubleAnimation.EasingFunction>
+                                            </DoubleAnimation>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Grid>
+                                <Rectangle x:Name="HoverRectangle" Fill="{StaticResource RedBrush}" Panel.ZIndex="0"
+                                           RenderTransformOrigin="0.5 1">
+                                    <Rectangle.RenderTransform>
+                                        <ScaleTransform ScaleX="1" ScaleY="0"/>
+                                    </Rectangle.RenderTransform>
+                                </Rectangle>
+                                <Rectangle x:Name="PressedRectangle"
+                                            Fill="Black" Panel.ZIndex="2"
+                                            Opacity="0">
+                                </Rectangle>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                  Margin="{TemplateBinding BorderThickness}" Panel.ZIndex="1"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <DataTemplate x:Key="NoobContent">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <TextBlock TextAlignment="Center"
+                                       FontSize="15" FontFamily="{StaticResource FontAwesome}"
+                                       Margin="0 0 0 5">&#xf005;
+                </TextBlock>
+                <TextBlock FontFamily="Segoe UI Black" TextAlignment="Center" Text="NOOB" FontSize="9"/>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="NormalContent">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <TextBlock TextAlignment="Center"
+                                       FontSize="15" FontFamily="{StaticResource FontAwesome}"
+                                       Margin="0 0 0 5">&#xf005; &#xf005;
+                </TextBlock>
+                <TextBlock FontFamily="Segoe UI Black" TextAlignment="Center" Text="NORMAL" FontSize="9"/>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="ProContent">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <TextBlock TextAlignment="Center"
+                                       FontSize="7.5" FontFamily="{StaticResource FontAwesome}"
+                                       Margin="0 0 0 5">&#xf005;<LineBreak/>&#xf005; &#xf005;
+                </TextBlock>
+                <TextBlock FontFamily="Segoe UI Black" TextAlignment="Center" Text="PRO" FontSize="9"/>
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Center">
+            <ctrl:ColorPicker VerticalAlignment="Center" HorizontalAlignment="Center"
+                              x:Name="firstColorPicker" Radius="25" Margin="60 80 60 60"/>
+            <TextBlock x:Name="firstTextBlock" Text="Player 1" HorizontalAlignment="Center"
+                       FontSize="20" Foreground="#FF636363"/>
+            <RadioButton x:Name="rbPlayer1First" GroupName="g3" HorizontalAlignment="Center" IsChecked="True"
+                         Checked="PlayFirstChecked"
+                         Style="{StaticResource GhostRadioButton}" Foreground="#636363">
+                Play First
+            </RadioButton>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+            <ctrl:ColorPicker VerticalAlignment="Center" HorizontalAlignment="Center"
+                              x:Name="secondColorPicker" Radius="25" Margin="60 80 60 60"/>
+            <TextBlock x:Name="secondTextBlock" Text="Player 2" HorizontalAlignment="Center"
+                       FontSize="20" Foreground="#FF636363"/>
+            <RadioButton x:Name="rbPlayer2First" GroupName="g3" HorizontalAlignment="Center"
+                         Checked="PlayFirstChecked"
+                         Style="{StaticResource GhostRadioButton}" Foreground="#636363">
+                Play First
+            </RadioButton>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0"
+                    x:Name="verticeCountContainer"
+                    VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock TextAlignment="Center" Foreground="#ee1d25">Number of Vertices</TextBlock>
+            <Border BorderThickness="0 0 0 2" BorderBrush="{StaticResource RedBrush}" Margin="0 5 0 0">
+                <StackPanel Orientation="Horizontal" x:Name="verticeCountRBG">
+                    <StackPanel.Resources>
+                        <Style x:Key="{x:Type RadioButton}" BasedOn="{StaticResource CustomRadioButton}" TargetType="RadioButton">
+                            <EventSetter Event="Checked" Handler="VerticeCountRadioButtonChecked"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <RadioButton Foreground="#ee1d25" GroupName="g1">4</RadioButton>
+                    <RadioButton Foreground="#ee1d25" GroupName="g1">5</RadioButton>
+                    <RadioButton Foreground="#ee1d25" GroupName="g1">6</RadioButton>
+                    <RadioButton Foreground="#ee1d25" GroupName="g1">7</RadioButton>
+                    <RadioButton Foreground="#ee1d25" GroupName="g1">8</RadioButton>
+                    <RadioButton Foreground="#ee1d25" GroupName="g1">9</RadioButton>
+                    <RadioButton Foreground="#ee1d25" GroupName="g1">10</RadioButton>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="1"
+                    x:Name="aiLevelContainer"
+                    VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock TextAlignment="Center" Foreground="#ee1d25">AI Level</TextBlock>
+            <Border BorderThickness="0 0 0 2" BorderBrush="{StaticResource RedBrush}" Margin="0 5 0 0">
+                <StackPanel Orientation="Horizontal" x:Name="aiLevelRBG">
+                    <StackPanel.Resources>
+                        <Style x:Key="{x:Type RadioButton}" BasedOn="{StaticResource CustomRadioButton}" TargetType="RadioButton">
+                            <EventSetter Event="Checked" Handler="AiLevelRadioButtonChecked"/>
+                        </Style>
+                    </StackPanel.Resources>
+                    <RadioButton x:Name="rbAiLevel0" Foreground="#ee1d25" GroupName="g2"
+                                 ContentTemplate="{StaticResource NoobContent}"/>
+                    <RadioButton x:Name="rbAiLevel1" Foreground="#ee1d25" GroupName="g2"
+                                 ContentTemplate="{StaticResource NormalContent}"/>
+                    <RadioButton x:Name="rbAiLevel2" Foreground="#ee1d25" GroupName="g2"
+                                 ContentTemplate="{StaticResource ProContent}"/>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+        <Button Grid.Row="2" Grid.Column="0" Margin="10" HorizontalAlignment="Left"
+                Style="{StaticResource GhostButton}"
+                BorderBrush="{StaticResource MagentaBrush}"
+                Click="BackButtonClick"
+                >
+            <Button.Foreground>
+                <SolidColorBrush Color="{StaticResource Color07}"/>
+            </Button.Foreground>
+            <StackPanel HorizontalAlignment="Center" Margin="3">
+                <TextBlock Text="Kembali" Style="{StaticResource TextPartStyle}"/>
+                <TextBlock Text="&#xf060;" Style="{StaticResource GlyphPartStyle}"/>
+            </StackPanel>
+        </Button>
+        <Button Grid.Row="2" Grid.Column="1" Margin="10" HorizontalAlignment="Right"
+                Style="{StaticResource GhostButton}"
+                BorderBrush="{StaticResource GreenBrush}"
+                Click="PlayButtonClick"
+                >
+            <Button.Foreground>
+                <SolidColorBrush Color="{StaticResource Color16}"/>
+            </Button.Foreground>
+            <StackPanel HorizontalAlignment="Center" Margin="3">
+                <TextBlock Text="Mulai" Style="{StaticResource TextPartStyle}"/>
+                <TextBlock Text="&#xf04b;" Style="{StaticResource GlyphPartStyle}"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+</UserControl>

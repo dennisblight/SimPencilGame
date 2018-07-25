@@ -1,4 +1,5 @@
-﻿using Deanor.Structure;
+﻿using Deanor.Media;
+using Deanor.Structure;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -54,15 +55,15 @@ namespace Deanor.Controls
             if(newValue)
             {
                 var sb = new Storyboard();
-                sb.Children.Add(StrokeThicknessAnima(edgeControl.Size * BottomLineHighlightRatio, TimeSpan.FromMilliseconds(50), edgeControl.bottomLine));
-                sb.Children.Add(StrokeThicknessAnima(edgeControl.Size * TopLineHighlightRatio, TimeSpan.FromMilliseconds(50), edgeControl.topLine));
+                sb.Children.Add(Anima.StrokeThicknessAnimation(edgeControl.Size * BottomLineHighlightRatio, edgeControl.bottomLine, Anima.BlinkDuration));
+                sb.Children.Add(Anima.StrokeThicknessAnimation(edgeControl.Size * TopLineHighlightRatio, edgeControl.topLine, Anima.BlinkDuration));
                 sb.Begin();
             }
             else
             {
                 var sb = new Storyboard();
-                sb.Children.Add(StrokeThicknessAnima(edgeControl.Size, TimeSpan.FromMilliseconds(50), edgeControl.bottomLine));
-                sb.Children.Add(StrokeThicknessAnima(edgeControl.Size, TimeSpan.FromMilliseconds(50), edgeControl.topLine));
+                sb.Children.Add(Anima.StrokeThicknessAnimation(edgeControl.Size, edgeControl.bottomLine, Anima.BlinkDuration));
+                sb.Children.Add(Anima.StrokeThicknessAnimation(edgeControl.Size, edgeControl.topLine, Anima.BlinkDuration));
                 sb.Begin();
             }
         }
@@ -117,12 +118,9 @@ namespace Deanor.Controls
             remove { RemoveHandler(CostChangedEvent, value); }
         }
 
-        private static DoubleAnimation StrokeThicknessAnima(double toValue, TimeSpan duration, DependencyObject target)
+        private static Timeline StrokeThicknessAnima(double toValue, TimeSpan duration, DependencyObject target)
         {
-            var strokeThicknessAnima = new DoubleAnimation(toValue, new Duration(duration));
-            Storyboard.SetTarget(strokeThicknessAnima, target);
-            Storyboard.SetTargetProperty(strokeThicknessAnima, new PropertyPath("StrokeThickness"));
-            return strokeThicknessAnima;
+            return Anima.StrokeThicknessAnimation(toValue, target, new Duration(duration));
         }
     }
     

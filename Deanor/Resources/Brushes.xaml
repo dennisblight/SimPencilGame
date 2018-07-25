@@ -24,4 +24,45 @@
                 ViewportUnits="Absolute"
                 TileMode="Tile"
                 />
+    <ImageBrush x:Key="ChalkTextureBrush"
+                ImageSource="/Deanor;component/Assets/chalk-texture.jpg"
+                Viewport="0 0 150 150"
+                ViewportUnits="Absolute"
+                TileMode="Tile"
+                />
+
+    <SolidColorBrush x:Key="ColorBrush01" Color="#fff100"/>
+    <SolidColorBrush x:Key="ColorBrush02" Color="#e9a714"/>
+    <SolidColorBrush x:Key="ColorBrush03" Color="#dd6b24"/>
+    <SolidColorBrush x:Key="ColorBrush04" Color="#ee1d25"/>
+    <SolidColorBrush x:Key="ColorBrush05" Color="#de1e33"/>
+    <SolidColorBrush x:Key="ColorBrush06" Color="#dc1a57"/>
+    <SolidColorBrush x:Key="ColorBrush07" Color="#ec008c"/>
+    <SolidColorBrush x:Key="ColorBrush08" Color="#8e2689"/>
+    <SolidColorBrush x:Key="ColorBrush09" Color="#5b2d8d"/>
+    <SolidColorBrush x:Key="ColorBrush10" Color="#2e3092"/>
+    <SolidColorBrush x:Key="ColorBrush11" Color="#034c9d"/>
+    <SolidColorBrush x:Key="ColorBrush12" Color="#006db3"/>
+    <SolidColorBrush x:Key="ColorBrush13" Color="#00aeef"/>
+    <SolidColorBrush x:Key="ColorBrush14" Color="#00a1a1"/>
+    <SolidColorBrush x:Key="ColorBrush15" Color="#009e68"/>
+    <SolidColorBrush x:Key="ColorBrush16" Color="#00a651"/>
+    <SolidColorBrush x:Key="ColorBrush17" Color="#53ad45"/>
+    <SolidColorBrush x:Key="ColorBrush18" Color="#9ec039"/>
+    <SolidColorBrush x:Key="GrayBrush01" Color="#aab8c0"/>
+    <SolidColorBrush x:Key="GrayBrush02" Color="#c1cbd1"/>
+    <SolidColorBrush x:Key="GrayBrush03" Color="#d1d9dd"/>
+    <SolidColorBrush x:Key="GrayBrush04" Color="#eeeaec"/>
+    <SolidColorBrush x:Key="GrayBrush05" Color="#eceff1"/>
+    <SolidColorBrush x:Key="BlackBrush01" Color="#000000"/>
+    <SolidColorBrush x:Key="BlackBrush02" Color="#0a0a0a"/>
+    <SolidColorBrush x:Key="BlackBrush03" Color="#0c0c0c"/>
+    <SolidColorBrush x:Key="BlackBrush04" Color="#0f0f0f"/>
+    <SolidColorBrush x:Key="BlackBrush05" Color="#111111"/>
+    <SolidColorBrush x:Key="YellowBrush" Color="#fff100"/>
+    <SolidColorBrush x:Key="RedBrush" Color="#ee1d25"/>
+    <SolidColorBrush x:Key="MagentaBrush" Color="#ec008c"/>
+    <SolidColorBrush x:Key="BlueBrush" Color="#2e3092"/>
+    <SolidColorBrush x:Key="AquaBrush" Color="#00aeef"/>
+    <SolidColorBrush x:Key="GreenBrush" Color="#00a651"/>
 </ResourceDictionary>

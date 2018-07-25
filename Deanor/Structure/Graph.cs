@@ -27,13 +27,22 @@ namespace Deanor.Structure
         IList<IEdge<T>> Edges { get; }
     }
 
-    public static class GraphHelper
+    public static class GraphExtension
     {
         public static IEdge<T> FindEdge<T>(this IGraph<T> graph, IVertice<T> verticeA, IVertice<T> verticeB)
         {
-            foreach(var e in verticeA.Edges)
+            foreach (var e in verticeA.Edges)
             {
                 if (e.HasVertice(verticeB)) return e;
+            }
+            return null;
+        }
+
+        public static IEdge<T> FindEdge<T>(this IGraph<T> graph, string id)
+        {
+            foreach (var e in graph.Edges)
+            {
+                if (e.ID.Equals(id) || e.ID.Equals(string.Concat(id[1], id[0]))) return e;
             }
             return null;
         }
@@ -43,7 +52,7 @@ namespace Deanor.Structure
             var graphClone = new Graph<T>();
             foreach (var v in graph.Vertices)
             {
-                graphClone.Vertices.Add(new Vertice<T>());
+                graphClone.Vertices.Add(new Vertice<T>(v.ID[0]));
             }
 
             for (int i = 1; i < graphClone.Vertices.Count; i++)

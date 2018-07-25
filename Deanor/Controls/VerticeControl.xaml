@@ -4,8 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Deanor.Controls"
-             mc:Ignorable="d"
+             mc:Ignorable="d" Cursor="Hand"
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform/>
+            <TranslateTransform/>
+            <RotateTransform/>
+        </TransformGroup>
+    </UserControl.RenderTransform>
     <Canvas x:Name="canvas">
         <Ellipse x:Name="bottomEllipse" 
                  Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" 
@@ -14,7 +21,10 @@
                  Height="{Binding Size, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VerticeControl}}}"
                  Opacity="0.5">
             <Ellipse.RenderTransform>
-                <ScaleTransform/>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
             </Ellipse.RenderTransform>
         </Ellipse>
         <Ellipse x:Name="middleEllipse" 
@@ -23,7 +33,10 @@
                  Width="{Binding Size, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VerticeControl}}}"
                  Height="{Binding Size, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VerticeControl}}}">
             <Ellipse.RenderTransform>
-                <ScaleTransform/>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
             </Ellipse.RenderTransform>
         </Ellipse>
         <Ellipse x:Name="topEllipse" 
@@ -33,7 +46,10 @@
                  Width="{Binding Size, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VerticeControl}}}"
                  Height="{Binding Size, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:VerticeControl}}}">
             <Ellipse.RenderTransform>
-                <ScaleTransform ScaleX="0.6" ScaleY="0.6"/>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="0.6" ScaleY="0.6"/>
+                    <TranslateTransform/>
+                </TransformGroup>
             </Ellipse.RenderTransform>
         </Ellipse>
     </Canvas>

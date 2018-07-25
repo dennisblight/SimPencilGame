@@ -1,9 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:s="clr-namespace:System;assembly=mscorlib">
+    <FontFamily x:Key="FontAwesome">/Deanor;component/Assets/#Font Awesome 5 Free Solid</FontFamily>
+    <FontFamily x:Key="MarketingScript">/Deanor;component/Assets/#Marketing Script</FontFamily>
     <Style x:Key="Glyph" TargetType="TextBlock">
         <Style.Setters>
-            <Setter Property="FontFamily" Value="/Deanor;component/Assets/#Font Awesome 5 Free Solid"/>
+            <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
             <Setter Property="Foreground">
                 <Setter.Value>
                     <SolidColorBrush Color="{StaticResource Black05}"/>
@@ -30,12 +32,23 @@
             <Setter Property="FontSize" Value="32"/>
         </Style.Setters>
     </Style>
-    <s:String x:Key="GlyphArrowLeft">&#xf060;</s:String>
-    <s:String x:Key="GlyphFlag">&#xf024;</s:String>
-    <s:String x:Key="GlyphPlay">&#xf04b;</s:String>
-    <s:String x:Key="GlyphRedo">&#xf01e;</s:String>
-    <s:String x:Key="GlyphUser">&#xf007;</s:String>
-    <s:String x:Key="GlyphQuestion">&#xf128;</s:String>
-    <s:String x:Key="GlyphTimes">&#xf00d;</s:String>
-    <s:String x:Key="GlyphDesktop">&#xf108;</s:String>
+    <s:Char x:Key="GlyphArrowLeft">&#xf060;</s:Char>
+    <s:Char x:Key="GlyphFlag">&#xf024;</s:Char>
+    <s:Char x:Key="GlyphPlay">&#xf04b;</s:Char>
+    <s:Char x:Key="GlyphRedo">&#xf01e;</s:Char>
+    <s:Char x:Key="GlyphUser">&#xf007;</s:Char>
+    <s:Char x:Key="GlyphQuestion">&#xf128;</s:Char>
+    <s:Char x:Key="GlyphTimes">&#xf00d;</s:Char>
+    <s:Char x:Key="GlyphDesktop">&#xf108;</s:Char>
+    <s:Char x:Key="GlyphStar">&#xf005;</s:Char>
+    <s:String x:Key="SGlyphArrowLeft">&#xf060;</s:String>
+    <s:String x:Key="SGlyphFlag">&#xf024;</s:String>
+    <s:String x:Key="SGlyphPlay">&#xf04b;</s:String>
+    <s:String x:Key="SGlyphRedo">&#xf01e;</s:String>
+    <s:String x:Key="SGlyphUser">&#xf007;</s:String>
+    <s:String x:Key="SGlyphQuestion">&#xf128;</s:String>
+    <s:String x:Key="SGlyphTimes">&#xf00d;</s:String>
+    <s:String x:Key="SGlyphDesktop">&#xf108;</s:String>
+    <s:String x:Key="SGlyphTrophy">&#xf091;</s:String>
+    <s:String x:Key="SGlyphStar">&#xf005;</s:String>
 </ResourceDictionary>

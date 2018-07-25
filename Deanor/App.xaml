@@ -8,6 +8,7 @@
                 <ResourceDictionary Source="Resources/Brushes.xaml"/>
                 <ResourceDictionary Source="Resources/Colors.xaml"/>
                 <ResourceDictionary Source="Resources/Glyphs.xaml"/>
+                <ResourceDictionary Source="Resources/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

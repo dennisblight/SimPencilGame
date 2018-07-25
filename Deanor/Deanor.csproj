@@ -58,21 +58,49 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AI\IGameAI.cs" />
+    <Compile Include="AI\NoobAI.cs" />
+    <Compile Include="AI\NormalAI.cs" />
+    <Compile Include="AI\ProAI.cs" />
+    <Compile Include="Controls\ColorPicker.xaml.cs">
+      <DependentUpon>ColorPicker.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\EdgeControl.xaml.cs">
       <DependentUpon>EdgeControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\EdgeControl.logic.cs" />
+    <Compile Include="Controls\GameAnimation.cs" />
+    <Compile Include="Controls\GameControl.cs" />
     <Compile Include="Controls\GraphControl.logic.cs" />
     <Compile Include="Controls\GraphControl.xaml.cs">
       <DependentUpon>GraphControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\HexagonalButton.cs" />
+    <Compile Include="Controls\HexButton.cs" />
     <Compile Include="Controls\VerticeControl.logic.cs" />
     <Compile Include="Controls\VerticeControl.xaml.cs">
       <DependentUpon>VerticeControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Media\Anima.cs" />
+    <Compile Include="Pages\GamePage.xaml.cs">
+      <DependentUpon>GamePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MainSection.xaml.cs">
+      <DependentUpon>MainSection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SettingSection.xaml.cs">
+      <DependentUpon>SettingSection.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Structure\Graph.cs" />
     <Compile Include="Structure\Edge.cs" />
     <Compile Include="Structure\Vertice.cs" />
+    <Page Include="Controls\ColorPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Controls\EdgeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -97,6 +125,22 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\GamePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MainSection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SettingSection.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Brushes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -108,6 +152,14 @@
     <Page Include="Resources\Glyphs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +181,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Resource Include="Assets\Font Awesome 5 Free-Solid-900.otf" />
+    <Resource Include="Assets\MarketingScript.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -144,6 +197,8 @@
     <Resource Include="Assets\favicon.ico" />
     <Resource Include="Assets\snow-texture.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\chalk-texture.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

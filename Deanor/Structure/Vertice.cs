@@ -8,14 +8,18 @@ namespace Deanor.Structure
 {
     public class Vertice<T> : IVertice<T>
     {
+        private readonly string id;
         private IList<IEdge<T>> edges;
 
-        public Vertice()
-        {
-            edges = new List<IEdge<T>>();
-        }
+        public string ID => id;
 
         public IList<IEdge<T>> Edges => edges;
+
+        public Vertice(char id)
+        {
+            edges = new List<IEdge<T>>();
+            this.id = id.ToString();
+        }
 
         public IEdge<T> Connect(IVertice<T> vertice, T cost)
         {
@@ -34,9 +38,10 @@ namespace Deanor.Structure
     {
         IList<IEdge<T>> Edges { get; }
         IEdge<T> Connect(IVertice<T> vertice, T cost);
+        string ID { get; }
     }
 
-    public static class VerticeHelper
+    public static class VerticeExtension
     {
         public static bool Connected<T>(this IVertice<T> vertice, IVertice<T> adjacent)
         {

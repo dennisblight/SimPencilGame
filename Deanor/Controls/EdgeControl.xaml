@@ -8,6 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Canvas>
         <Line x:Name="bottomLine"
+              StrokeEndLineCap="Round"
               X1="{Binding X1, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
               X2="{Binding X2, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
               Y1="{Binding Y1, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
@@ -17,6 +18,7 @@
               >
         </Line>
         <Line x:Name="topLine"
+              StrokeEndLineCap="Round"
               X1="{Binding X1, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
               X2="{Binding X2, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
               Y1="{Binding Y1, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"

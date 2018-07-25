@@ -13,22 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Deanor
+namespace Deanor.Pages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainPage : UserControl
     {
-        public MainWindow()
+        public MainPage()
         {
             InitializeComponent();
-            Loaded += MainWindow_Loaded;
-        }
-
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            App.Navigate(App.MainPageKey);
         }
     }
 }

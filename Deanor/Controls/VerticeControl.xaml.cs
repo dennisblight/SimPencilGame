@@ -1,6 +1,8 @@
-﻿using Deanor.Structure;
+﻿using Deanor.Media;
+using Deanor.Structure;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -80,6 +82,23 @@ namespace Deanor.Controls
             PreviewColorProperty = DependencyProperty.Register("PreviewColor", typeof(Color?), typeof(VerticeControl), new PropertyMetadata(null, OnPreviewColorChanged));
             InputStateProperty = DependencyProperty.Register("InputState", typeof(InputState), typeof(VerticeControl), new PropertyMetadata(InputState.Origin, OnInputStateChanged));
             InputStateChangedEvent = EventManager.RegisterRoutedEvent("InputStateChanged", RoutingStrategy.Bubble, typeof(RoutedPropertyChangedEventHandler<InputState>), typeof(VerticeControl));
+        }
+
+        public void ApplyColor(Color color)
+        {
+            //(Foreground as SolidColorBrush).Color = color;
+            Foreground = new SolidColorBrush(color);
+            originalColor = color;
+        }
+
+        public void ApplyPreviewColor()
+        {
+            if(PreviewColor.HasValue)
+            {
+                Foreground = new SolidColorBrush(PreviewColor.Value);
+                //(Foreground as SolidColorBrush).Color = PreviewColor.Value;
+                originalColor = PreviewColor.Value;
+            }
         }
 
         private static void OnPreviewColorChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
@@ -186,9 +205,9 @@ namespace Deanor.Controls
             }
         }
 
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
         {
-            base.OnMouseLeftButtonDown(e);
+            base.OnPreviewMouseLeftButtonDown(e);
             switch (InputState)
             {
                 case InputState.Hovered:
@@ -197,9 +216,9 @@ namespace Deanor.Controls
             }
         }
 
-        protected override void OnTouchDown(TouchEventArgs e)
+        protected override void OnPreviewTouchDown(TouchEventArgs e)
         {
-            base.OnTouchDown(e);
+            base.OnPreviewTouchDown(e);
             switch (InputState)
             {
                 case InputState.Hovered:
@@ -208,9 +227,9 @@ namespace Deanor.Controls
             }
         }
 
-        protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
+        protected override void OnPreviewMouseLeftButtonUp(MouseButtonEventArgs e)
         {
-            base.OnMouseLeftButtonUp(e);
+            base.OnPreviewMouseLeftButtonUp(e);
             switch (InputState)
             {
                 case InputState.Clicked:
@@ -222,9 +241,9 @@ namespace Deanor.Controls
             }
         }
 
-        protected override void OnTouchUp(TouchEventArgs e)
+        protected override void OnPreviewTouchUp(TouchEventArgs e)
         {
-            base.OnTouchUp(e);
+            base.OnPreviewTouchUp(e);
             switch (InputState)
             {
                 case InputState.Clicked:
@@ -238,81 +257,81 @@ namespace Deanor.Controls
 
         private void Origin()
         {
-            var sb = new Storyboard();
-            sb.Children.Add(ScaleAnimation(TopRatioOrigin, TimeSpan.FromMilliseconds(50), topEllipse));
-            sb.Children.Add(ScaleAnimation(MiddleRatioOrigin, TimeSpan.FromMilliseconds(50), middleEllipse));
-            sb.Children.Add(ScaleAnimation(BottomRatioOrigin, TimeSpan.FromMilliseconds(50), bottomEllipse));
-            if (PreviewColor != null)
-            {
-                //originalColor = (Foreground as SolidColorBrush).Color;
-                sb.Children.Add(ForegroundColorAnimation(originalColor, TimeSpan.FromMilliseconds(50), this));
-            }
+            var sb = ToOriginAnima();
+            //if (PreviewColor != null)
+            //{
+            //    sb.Children.Add(Anima.ForegroundAnimation(originalColor, this, Anima.BlinkDuration));
+            //}
             sb.Begin();
         }
 
         private void Hovered()
         {
-            var sb = new Storyboard();
-            sb.Children.Add(ScaleAnimation(TopRatioOrigin, TimeSpan.FromMilliseconds(50), topEllipse));
-            sb.Children.Add(ScaleAnimation(MiddleRatioAlternate, TimeSpan.FromMilliseconds(50), middleEllipse));
-            sb.Children.Add(ScaleAnimation(BottomRatioOrigin, TimeSpan.FromMilliseconds(50), bottomEllipse));
-            if (PreviewColor.HasValue)
-            {
-                //originalColor = (Foreground as SolidColorBrush).Color;
-                sb.Children.Add(ForegroundColorAnimation(originalColor, TimeSpan.FromMilliseconds(50), this));
-                //MessageBox.Show(PreviewColor.ToString());
-            }
+            var sb = ToHoveredAnima();
+            //if (PreviewColor.HasValue)
+            //{
+            //    sb.Children.Add(Anima.ForegroundAnimation(originalColor, this, Anima.BlinkDuration));
+            //}
             sb.Begin();
         }
 
         private void Clicked()
         {
-            var sb = new Storyboard();
-            sb.Children.Add(ScaleAnimation(TopRatioAlternate, TimeSpan.FromMilliseconds(50), topEllipse));
-            sb.Children.Add(ScaleAnimation(MiddleRatioOrigin, TimeSpan.FromMilliseconds(50), middleEllipse));
-            sb.Children.Add(ScaleAnimation(BottomRatioAlternate, TimeSpan.FromMilliseconds(50), bottomEllipse));
-            if (PreviewColor != null)
-            {
-                //originalColor = (Foreground as SolidColorBrush).Color;
-                sb.Children.Add(ForegroundColorAnimation(PreviewColor.Value, TimeSpan.FromMilliseconds(50), this));
-            }
+            var sb = ToHighlightAnima();
+            //if (PreviewColor != null)
+            //{
+            //    sb.Children.Add(Anima.ForegroundAnimation(PreviewColor.Value, this, Anima.BlinkDuration));
+            //}
             sb.Begin();
         }
 
         private void Dragged()
         {
-            var sb = new Storyboard();
-            sb.Children.Add(ScaleAnimation(TopRatioAlternate, TimeSpan.FromMilliseconds(50), topEllipse));
-            sb.Children.Add(ScaleAnimation(MiddleRatioOrigin, TimeSpan.FromMilliseconds(50), middleEllipse));
-            sb.Children.Add(ScaleAnimation(BottomRatioAlternate, TimeSpan.FromMilliseconds(50), bottomEllipse));
-            if (PreviewColor != null)
-            {
-                //originalColor = (Foreground as SolidColorBrush).Color;
-                sb.Children.Add(ForegroundColorAnimation(PreviewColor.Value, TimeSpan.FromMilliseconds(50), this));
-            }
+            var sb = ToHighlightAnima();
+            //if (PreviewColor != null)
+            //{
+            //    sb.Children.Add(Anima.ForegroundAnimation(PreviewColor.Value, this, Anima.BlinkDuration));
+            //}
             sb.Begin();
         }
 
-        private Storyboard ScaleAnimation(double toValue, TimeSpan duration, DependencyObject target)
+        public Storyboard ToOriginAnima()
         {
             var sb = new Storyboard();
-            var xscaleAnima = new DoubleAnimation(toValue, new Duration(duration));
-            var yscaleAnima = new DoubleAnimation(toValue, new Duration(duration));
-            Storyboard.SetTarget(xscaleAnima, target);
-            Storyboard.SetTarget(yscaleAnima, target);
-            Storyboard.SetTargetProperty(xscaleAnima, new PropertyPath("RenderTransform.ScaleX"));
-            Storyboard.SetTargetProperty(yscaleAnima, new PropertyPath("RenderTransform.ScaleY"));
-            sb.Children.Add(yscaleAnima);
-            sb.Children.Add(xscaleAnima);
+            sb.Children.Add(Anima.ScaleAnimation(TopRatioOrigin, topEllipse, Anima.BlinkDuration));
+            sb.Children.Add(Anima.ScaleAnimation(MiddleRatioOrigin, middleEllipse, Anima.BlinkDuration));
+            sb.Children.Add(Anima.ScaleAnimation(BottomRatioOrigin, bottomEllipse, Anima.BlinkDuration));
+            if (PreviewColor != null)
+            {
+                sb.Children.Add(Anima.ForegroundAnimation(originalColor, this, Anima.BlinkDuration));
+            }
             return sb;
         }
 
-        private ColorAnimation ForegroundColorAnimation(Color toValue, TimeSpan duration, DependencyObject target)
+        public Storyboard ToHighlightAnima()
         {
-            var foregroundColorAnima = new ColorAnimation(toValue, new Duration(duration));
-            Storyboard.SetTarget(foregroundColorAnima, target);
-            Storyboard.SetTargetProperty(foregroundColorAnima, new PropertyPath("Foreground.Color"));
-            return foregroundColorAnima;
+            var sb = new Storyboard();
+            sb.Children.Add(Anima.ScaleAnimation(TopRatioAlternate, topEllipse, Anima.BlinkDuration));
+            sb.Children.Add(Anima.ScaleAnimation(MiddleRatioOrigin, middleEllipse, Anima.BlinkDuration));
+            sb.Children.Add(Anima.ScaleAnimation(BottomRatioAlternate, bottomEllipse, Anima.BlinkDuration));
+            if (PreviewColor != null)
+            {
+                sb.Children.Add(Anima.ForegroundAnimation(PreviewColor.Value, this, Anima.BlinkDuration));
+            }
+            return sb;
+        }
+
+        public Storyboard ToHoveredAnima()
+        {
+            var sb = new Storyboard();
+            sb.Children.Add(Anima.ScaleAnimation(TopRatioOrigin, topEllipse, Anima.BlinkDuration));
+            sb.Children.Add(Anima.ScaleAnimation(MiddleRatioAlternate, middleEllipse, Anima.BlinkDuration));
+            sb.Children.Add(Anima.ScaleAnimation(BottomRatioOrigin, bottomEllipse, Anima.BlinkDuration));
+            if (PreviewColor.HasValue)
+            {
+                sb.Children.Add(Anima.ForegroundAnimation(originalColor, this, Anima.BlinkDuration));
+            }
+            return sb;
         }
     }
 

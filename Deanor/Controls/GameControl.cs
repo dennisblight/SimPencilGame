@@ -79,6 +79,14 @@ namespace Deanor.Controls
 
         private bool rendered;
 
+        public void Surrender()
+        {
+            canvas.IsHitTestVisible = false;
+            var gs = IsPlayer1Turn ? GameStatus.Player1Surrender : GameStatus.Player2Surrender;
+            var args = new GamesEndEventArgs(GamesEndEvent, this, new GameResult(gs, null));
+            RaiseEvent(args);
+        }
+
         public override void Render()
         {
             base.Render();
@@ -178,7 +186,7 @@ namespace Deanor.Controls
             v1Hover.BeginTime = TimeSpan.FromMilliseconds(600);
             v1Highlight.BeginTime = TimeSpan.FromMilliseconds(600);
             drawLine.BeginTime = TimeSpan.FromMilliseconds(600);
-            v2Highlight.BeginTime = TimeSpan.FromMilliseconds(0);
+            v2Highlight.BeginTime = TimeSpan.FromMilliseconds(50);
 
             bool _lock1 = false, _lock2 = false, _lock3 = false, _lock4 = false;
             v1Hover.Completed += (o, e) =>
@@ -273,7 +281,6 @@ namespace Deanor.Controls
                         {
                             anima.Completed += (o, ev) =>
                             {
-                                //PreviewColor = Player2Color;
                                 AITurns();
                                 Debug.WriteLine("anima complete.. AI turns");
                             };
@@ -359,7 +366,6 @@ namespace Deanor.Controls
             }
             boomAnima.Completed += (o, e) => RaiseEvent(new GamesEndEventArgs(GamesEndEvent, this, gameResult));
             boomAnima.Begin();
-            
         }
 
         protected override void VerticeDrop(VerticeControl origin, VerticeControl adjacent)

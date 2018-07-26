@@ -59,9 +59,7 @@ namespace Deanor
             get
             {
                 if (mainSection == null)
-                {
                     mainSection = new MainSection();
-                }
                 return mainSection;
             }
         }
@@ -72,9 +70,7 @@ namespace Deanor
             get
             {
                 if (settingSection == null)
-                {
                     settingSection = new SettingSection();
-                }
                 return settingSection;
             }
         }
@@ -96,7 +92,6 @@ namespace Deanor
                 var r1 = rand.Next(18);
                 var r2 = rand.Next(17);
                 var r3 = rand.Next(7);
-                var param = (IGameParameters)SettingSection;
                 GameParameters.Player1ColorIndex = r1;
                 GameParameters.Player2ColorIndex = r2 < r1 ? r2 : (r2 + 1);
                 GameParameters.VerticeCount = (r3 + 4);
@@ -143,7 +138,8 @@ namespace Deanor
                                     break;
                                 case GamePageKey:
                                     var anima = TransitionDown(cw.mainGrid, MainPage, GamePage);
-                                    anima.Completed += (o, e) => GamePage.CreateGameControl();
+                                    GamePage.CreateGameControl();
+                                    anima.Completed += (o, e) => GamePage.Render();
                                     anima.Begin();
                                     break;
                             }

@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -135,7 +131,7 @@ namespace Deanor.Controls
                 sb.Remove();
                 if(!_exclusiveLock)
                 {
-                    if (!IsPlayer1Turn)
+                    if (!IsPlayer1Turn && AIPlayer != null)
                     {
                         AITurns();
                         canvas.IsHitTestVisible = false;

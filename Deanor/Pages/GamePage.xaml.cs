@@ -1,4 +1,5 @@
 ﻿using Deanor.Controls;
+using Deanor.Scene;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -27,6 +28,8 @@ namespace Deanor.Pages
 
         public static double HexHeight => hexHeight;
         public static double HexWidth => hexHeight * Math.Sqrt(3) / 2;
+
+        private IScene endGameScene;
 
         public static PointCollection HexPoints
         {
@@ -73,6 +76,7 @@ namespace Deanor.Pages
         private void restartButton_Click(object sender, RoutedEventArgs e)
         {
             CreateGameControl();
+            Render();
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)
@@ -80,14 +84,99 @@ namespace Deanor.Pages
             App.Navigate(App.SettingPageKey);
         }
 
+        private void surrenderButton_Click(object sender, RoutedEventArgs e)
+        {
+            currentGameControl.Surrender();
+        }
+
         private void GameControl_GamesEnd(object sender, GamesEndEventArgs args)
         {
-            Debug.WriteLine(args.GameResult.GameStatus);
+            switch(args.GameResult.GameStatus)
+            {
+                case GameStatus.Player1Win:
+                    if (App.GameParameters.VersusPlayer)
+                    {
+                        endGameScene = new PlayerWinScene(App.GameParameters.Player1Name, App.GameParameters.Player1Color);
+                    }
+                    else
+                    {
+                        endGameScene = new PlayerWinScene();
+                    }
+                    p1GameState.Text = "\xf091"; // Trophy Glyph
+                    p1GameState.Foreground = Brushes.Gold;
+                    p1GameState.Visibility = Visibility.Visible;
+                    p1GameState.ToolTip = $"{App.GameParameters.Player1Name} Win!";
+                    p2GameState.Visibility = Visibility.Hidden;
+                    break;
+                case GameStatus.Player2Win:
+                    if (App.GameParameters.VersusPlayer)
+                    {
+                        endGameScene = new PlayerWinScene(App.GameParameters.Player2Name, App.GameParameters.Player2Color);
+                    }
+                    else
+                    {
+                        endGameScene = new PlayerLoseScene();
+                    }
+                    p2GameState.Text = "\xf091"; // Trophy Glyph
+                    p2GameState.Foreground = Brushes.Gold;
+                    p2GameState.Visibility = Visibility.Visible;
+                    p2GameState.ToolTip = $"{App.GameParameters.Player2Name} Win!";
+                    p1GameState.Visibility = Visibility.Hidden;
+                    break;
+                case GameStatus.Player1Surrender:
+                    endGameScene = new PlayerSurrenderScene(App.GameParameters.Player1Name, App.GameParameters.Player1Color);
+                    p1GameState.Text = "\xf024"; // Flag Glyph
+                    p1GameState.Foreground = Brushes.White;
+                    p1GameState.Visibility = Visibility.Visible;
+                    p1GameState.ToolTip = $"{App.GameParameters.Player1Name} Surrendered..";
+                    p2GameState.Visibility = Visibility.Hidden;
+                    break;
+                case GameStatus.Player2Surrender:
+                    endGameScene = new PlayerSurrenderScene(App.GameParameters.Player2Name, App.GameParameters.Player2Color);
+                    p1GameState.Text = "\xf024"; // Flag Glyph
+                    p1GameState.Foreground = Brushes.White;
+                    p1GameState.Visibility = Visibility.Visible;
+                    p1GameState.ToolTip = $"{App.GameParameters.Player2Name} Surrendered..";
+                    p2GameState.Visibility = Visibility.Hidden;
+                    break;
+                case GameStatus.Draw:
+                    endGameScene = new DrawScene();
+                    break;
+            }
+            surrenderButton.Visibility = Visibility.Hidden;
+            restartButton.Visibility = Visibility.Visible;
+            backButton.Visibility = Visibility.Visible;
+            if (endGameScene != null)
+            {
+                MountScene();
+                endGameScene.ShowScene();
+                Debug.WriteLine("scene shown");
+            }
         }
 
         private void GameControl_TurnsEnd(object sender, RoutedEventArgs e)
         {
             EndTurnsAnima().Begin();
+            if(currentGameControl!= null &&! App.GameParameters.VersusPlayer)
+            {
+                if(currentGameControl.IsPlayer1Turn)
+                    surrenderButton.IsEnabled = true;
+                else
+                    surrenderButton.IsEnabled = false;
+            }
+        }
+
+        private void MountScene()
+        {
+            Grid.SetRowSpan(endGameScene.Element, 3);
+            Panel.SetZIndex(endGameScene.Element, 10);
+            endGameScene.Element.MouseLeftButtonDown += scene_MouseLeftButtonDown;
+            mainContainer.Children.Add(endGameScene.Element);
+        }
+
+        private void scene_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            endGameScene.CloseScene();
         }
 
         private GameControl GameControl => mainContainer.Children.OfType<GameControl>().First();
@@ -156,7 +245,20 @@ namespace Deanor.Pages
             currentGameControl.TurnsEnd += GameControl_TurnsEnd;
             mainContainer.Children.Add(currentGameControl);
             Grid.SetRowSpan(currentGameControl, 2);
-            currentGameControl.Render();
+            restartButton.Visibility = Visibility.Hidden;
+            backButton.Visibility = Visibility.Hidden;
+            surrenderButton.Visibility = Visibility.Visible;
+            p1GameState.Visibility = Visibility.Hidden;
+            p2GameState.Visibility = Visibility.Hidden;
+            if (endGameScene != null && mainContainer.Children.Contains(endGameScene.Element))
+                mainContainer.Children.Remove(endGameScene.Element);
+            endGameScene = null;
+        }
+
+        public void Render()
+        {
+            if(currentGameControl != null)
+                currentGameControl.Render();
         }
 
         private Storyboard EndTurnsAnima()

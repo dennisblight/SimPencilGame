@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ctrl="clr-namespace:Deanor.Controls"
+             xmlns:scene="clr-namespace:Deanor.Scene"
              xmlns:p="clr-namespace:Deanor.Pages"
              mc:Ignorable="d" Background="{StaticResource SuedeTextureBrush}"
              d:DesignHeight="570" d:DesignWidth="800">
@@ -85,8 +86,8 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Panel.ZIndex="10">
-            <Button Style="{StaticResource GhostButton}" Margin="10"
-                    BorderBrush="{StaticResource GrayBrush01}">
+            <Button x:Name="surrenderButton" Style="{StaticResource GhostButton}" Margin="10"
+                    BorderBrush="{StaticResource GrayBrush01}" Click="surrenderButton_Click">
                 <Button.Foreground>
                     <SolidColorBrush Color="{StaticResource Gray01}"/>
                 </Button.Foreground>
@@ -110,6 +111,9 @@
                                Foreground="Black"
                                VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Grid>
+                <TextBlock x:Name="p1GameState" Text="{StaticResource SGlyphTrophy}" Foreground="Gold"
+                           Visibility="Hidden" TextAlignment="Center"
+                           FontFamily="{StaticResource FontAwesome}"/>
             </StackPanel>
             <StackPanel Orientation="Vertical" Margin="10 5 10 0">
                 <TextBlock x:Name="p2Name" HorizontalAlignment="Center" Margin="0 0 0 10"
@@ -125,86 +129,10 @@
                                Foreground="Black"
                                VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Grid>
+                <TextBlock x:Name="p2GameState" Text="{StaticResource SGlyphFlag}" Foreground="White"
+                           Visibility="Hidden" TextAlignment="Center"
+                           FontFamily="{StaticResource FontAwesome}"/>
             </StackPanel>
         </StackPanel>
-        <!--
-        <ctrl:GameControl x:Name="graph" Grid.Row="1"
-                          SpreadDistance="180"
-                          VerticesSize="27"
-                          Background="{Binding Background, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
-                          VerticesCount="10"
-                          Player1Color="{StaticResource Color01}"
-                          Player2Color="{StaticResource Color07}"
-                          >
-            <ctrl:GameControl.Foreground>
-                <SolidColorBrush Color="{StaticResource Gray01}"/>
-            </ctrl:GameControl.Foreground>
-        </ctrl:GameControl>
-        
-        <Grid Grid.Row="2" Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center" Width="100">
-                <TextBlock x:Name="p1Name" HorizontalAlignment="Center" Margin="5 5 5 0"
-                           Foreground="{StaticResource GrayBrush03}"
-                           >Player 1</TextBlock>
-                <Polygon x:Name="p1Polygon" HorizontalAlignment="Center" Margin="5 5 5 0"
-                         Fill="Black" Stroke="Black" StrokeThickness="2" Points="{x:Static p:GamePage.HexPoints}">
-                </Polygon>
-            </StackPanel>
-            <StackPanel Grid.Column="1" HorizontalAlignment="Center">
-                <Grid ClipToBounds="True" Margin="5 5 5 0" x:Name="textStateGrid">
-                    <TextBlock HorizontalAlignment="Center" x:Name="p1StateText"
-                               Foreground="{StaticResource GrayBrush03}">
-                        <TextBlock.RenderTransform>
-                            <TranslateTransform/>
-                        </TextBlock.RenderTransform>
-                        Player 1
-                    </TextBlock>
-                    <TextBlock HorizontalAlignment="Center" x:Name="p2StateText"
-                               Foreground="{StaticResource GrayBrush03}">
-                        <TextBlock.RenderTransform>
-                            <TranslateTransform X="100"/>
-                        </TextBlock.RenderTransform>
-                        Player 2
-                    </TextBlock>
-                </Grid>
-                <Grid Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center"
-                      Width="{x:Static p:GamePage.HexWidth}" Height="{x:Static p:GamePage.HexHeight}"
-                      Margin="5 5 5 0" x:Name="stateGrid">
-                    <Grid.Clip>
-                        <PathGeometry Figures="{x:Static p:GamePage.HexFigures}" />
-                    </Grid.Clip>
-                    <Rectangle x:Name="p1StateRectangle">
-                        <Rectangle.RenderTransform>
-                            <TranslateTransform/>
-                        </Rectangle.RenderTransform>
-                    </Rectangle>
-                    <Rectangle x:Name="p2StateRectangle">
-                        <Rectangle.RenderTransform>
-                            <TranslateTransform/>
-                        </Rectangle.RenderTransform>
-                    </Rectangle>
-                    <Polygon Stroke="{StaticResource GrayBrush01}" StrokeThickness="2" Points="{x:Static p:GamePage.HexPoints}">
-                    </Polygon>
-                </Grid>
-                <TextBlock HorizontalAlignment="Center" Margin="5 5 5 0" Foreground="{StaticResource GrayBrush03}">
-                    Turn
-                </TextBlock>
-            </StackPanel>
-            <StackPanel Grid.Column="2" Orientation="Vertical" HorizontalAlignment="Center" Width="100">
-                <TextBlock x:Name="p2Name" HorizontalAlignment="Center" Margin="5 5 5 0"
-                           Foreground="{StaticResource GrayBrush03}">
-                    Player 2
-                </TextBlock>
-                <Polygon x:Name="p2Polygon" HorizontalAlignment="Center" Margin="5 5 5 0"
-                         Fill="Black" Stroke="Black" StrokeThickness="2" Points="{x:Static p:GamePage.HexPoints}">
-                </Polygon>
-            </StackPanel>
-        </Grid>
-        -->
     </Grid>
 </UserControl>

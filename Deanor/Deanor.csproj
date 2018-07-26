@@ -94,6 +94,19 @@
     <Compile Include="Pages\SettingSection.xaml.cs">
       <DependentUpon>SettingSection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Scene\DrawScene.xaml.cs">
+      <DependentUpon>DrawScene.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Scene\IScene.cs" />
+    <Compile Include="Scene\PlayerLoseScene.xaml.cs">
+      <DependentUpon>PlayerLoseScene.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Scene\PlayerSurrenderScene.xaml.cs">
+      <DependentUpon>PlayerSurrenderScene.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Scene\PlayerWinScene.xaml.cs">
+      <DependentUpon>PlayerWinScene.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Structure\Graph.cs" />
     <Compile Include="Structure\Edge.cs" />
     <Compile Include="Structure\Vertice.cs" />
@@ -154,6 +167,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Scene\DrawScene.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Scene\PlayerLoseScene.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Scene\PlayerSurrenderScene.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Scene\PlayerWinScene.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

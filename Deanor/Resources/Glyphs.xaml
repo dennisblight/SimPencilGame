@@ -50,5 +50,6 @@
     <s:String x:Key="SGlyphTimes">&#xf00d;</s:String>
     <s:String x:Key="SGlyphDesktop">&#xf108;</s:String>
     <s:String x:Key="SGlyphTrophy">&#xf091;</s:String>
-    <s:String x:Key="SGlyphStar">&#xf005;</s:String>
+    <s:String x:Key="SGlyphThumbDown">&#xf165;</s:String>
+    <s:String x:Key="SGlyphStar">&#xf005;</s:String> 
 </ResourceDictionary>

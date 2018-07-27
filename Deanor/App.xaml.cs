@@ -144,7 +144,7 @@ namespace Deanor
                                 case HelpPageKey:
                                     TransitionUp(cw.mainGrid, MainPage, HelpPage).Begin();
                                     break;
-                            }
+                            } 
                         }
                         break;
                     case SettingPageKey:

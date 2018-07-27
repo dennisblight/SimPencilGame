@@ -1,0 +1,20 @@
+﻿Sim Pencil Game 4.0
+
+
+winexe
+C#
+.cs
+D:\Repository\SimPencilGame\Deanor\obj\Debug\
+Deanor
+none
+false
+DEBUG;TRACE
+D:\Repository\SimPencilGame\Deanor\App.xaml
+182017544754
+
+37-1140369326
+13-1142990016
+Controls\ColorPicker.xaml;Controls\EdgeControl.xaml;Controls\GraphControl.xaml;Controls\VerticeControl.xaml;MainWindow.xaml;Pages\GamePage.xaml;Pages\MainPage.xaml;Pages\MainSection.xaml;Pages\SettingSection.xaml;Resources\Brushes.xaml;Resources\Colors.xaml;Resources\Glyphs.xaml;Resources\Styles.xaml;Scene\DrawScene.xaml;Scene\PlayerLoseScene.xaml;Scene\PlayerSurrenderScene.xaml;Scene\PlayerWinScene.xaml;Themes\Generic.xaml;
+
+True
+

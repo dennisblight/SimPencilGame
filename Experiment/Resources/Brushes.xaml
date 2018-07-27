@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ImageBrush x:Key="SnowTextureBrush"
+                ImageSource="/Experiment;component/Assets/snow-texture.jpg"
+                Viewport="0 0 512 512"
+                ViewportUnits="Absolute"
+                TileMode="Tile"
+                />
+    <ImageBrush x:Key="ConcreteTextureBrush"
+                ImageSource="/Experiment;component/Assets/dark-concrete.png"
+                Viewport="0 0 448 358"
+                ViewportUnits="Absolute"
+                TileMode="Tile"
+                />
+    <ImageBrush x:Key="FabricTextureBrush"
+                ImageSource="/Experiment;component/Assets/dark-fabric.png"
+                Viewport="0 0 358 275"
+                ViewportUnits="Absolute"
+                TileMode="Tile"
+                />
+    <ImageBrush x:Key="SuedeTextureBrush"
+                ImageSource="/Experiment;component/Assets/dark-suede.png"
+                Viewport="0 0 413 309"
+                ViewportUnits="Absolute"
+                TileMode="Tile"
+                />
+</ResourceDictionary>

@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Experiment.Pages.MainSection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Experiment"
+             mc:Ignorable="d" FontSize="14"
+             Background="{StaticResource SnowTextureBrush}"
+             d:DesignHeight="500" d:DesignWidth="800">
+    <UserControl.RenderTransform>
+        <TranslateTransform/>
+    </UserControl.RenderTransform>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Center" Width="300" Margin="0 30">
+            <local:HexButton AccentColor="{StaticResource Color10}" Margin="10" Height="50" Width="250" Glyph="{StaticResource GlyphDesktop}" Text="vs. Computer" MouseLeftButtonDown="HexButton_MouseLeftButtonDown"/>
+            <local:HexButton AccentColor="{StaticResource Color16}" Margin="10" Height="50" Width="250" Glyph="{StaticResource GlyphUser}" Text="vs. Player"  MouseLeftButtonDown="HexButton_MouseLeftButtonDown"/>
+            <local:HexButton AccentColor="{StaticResource Color02}" Margin="10" Height="50" Width="250" Glyph="{StaticResource GlyphQuestion}" Text="Help"/>
+            <local:HexButton AccentColor="{StaticResource Color04}" Margin="10" Height="50" Width="250" Glyph="{StaticResource GlyphTimes}" Text="Exit"/>
+        </StackPanel>
+        <TextBlock Margin="30" Grid.Row="1"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Foreground="Gray"
+                       >&#169;2018 Demuniz Team</TextBlock>
+    </Grid>
+</UserControl>

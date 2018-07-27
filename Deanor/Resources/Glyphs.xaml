@@ -2,7 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:s="clr-namespace:System;assembly=mscorlib">
     <FontFamily x:Key="FontAwesome">/Deanor;component/Assets/#Font Awesome 5 Free Solid</FontFamily>
-    <FontFamily x:Key="MarketingScript">/Deanor;component/Assets/#Marketing Script</FontFamily>
     <Style x:Key="Glyph" TargetType="TextBlock">
         <Style.Setters>
             <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>

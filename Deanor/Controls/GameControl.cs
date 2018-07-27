@@ -193,7 +193,6 @@ namespace Deanor.Controls
             {
                 if(!_lock1)
                 {
-                    Debug.WriteLine("v1Hover completed..");
                     v1Highlight.Begin();
                     _lock1 = true;
                 }
@@ -202,7 +201,6 @@ namespace Deanor.Controls
             {
                 if(!_lock2)
                 {
-                    Debug.WriteLine("v1Highlight completed..");
                     supportLine.Visibility = Visibility.Visible;
                     supportLine.X1 = v1.CanvasLeft;
                     supportLine.Y1 = v1.CanvasTop;
@@ -216,7 +214,6 @@ namespace Deanor.Controls
             {
                 if (!_lock3)
                 {
-                    Debug.WriteLine("drawLine completed..");
                     edge.Highlighted = true;
                     v2Highlight.Begin();
                     _lock3 = true;
@@ -227,7 +224,6 @@ namespace Deanor.Controls
             {
                 if (!_lock4)
                 {
-                    Debug.WriteLine("v2Highlight completed..");
                     if (lastRenderedEdge != null)
                     {
                         Panel.SetZIndex(lastRenderedEdge, EdgesZIndex);
@@ -265,6 +261,7 @@ namespace Deanor.Controls
                 var result = this.CheckWinner(edge);
                 if (result.GameStatus != GameStatus.Continue)
                 {
+                    Debug.WriteLine("Games end..");
                     OnGamesEnd(result);
                 }
                 else
@@ -282,7 +279,6 @@ namespace Deanor.Controls
                             anima.Completed += (o, ev) =>
                             {
                                 AITurns();
-                                Debug.WriteLine("anima complete.. AI turns");
                             };
                         }
                         anima.Begin();
@@ -308,6 +304,11 @@ namespace Deanor.Controls
 
         protected virtual void OnGamesEnd(GameResult gameResult)
         {
+            if(gameResult.GameStatus == GameStatus.Draw)
+            {
+                RaiseEvent(new GamesEndEventArgs(GamesEndEvent, this, gameResult));
+                return;
+            }
             var set = new HashSet<VerticeControl>();
             IsEnabled = false;
             var fgColor = Colors.Black;

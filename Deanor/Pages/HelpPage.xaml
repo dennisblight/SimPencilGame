@@ -1,0 +1,119 @@
+﻿<UserControl x:Class="Deanor.Pages.HelpPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Deanor.Pages"
+             mc:Ignorable="d"  Background="{StaticResource SnowTextureBrush}"
+             d:DesignHeight="570" d:DesignWidth="800">
+    <UserControl.RenderTransform>
+        <TranslateTransform/>
+    </UserControl.RenderTransform>
+    <UserControl.Resources>
+        <Style x:Key="{x:Type TextBlock}" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe UI Black"/>
+        </Style>
+        <Style x:Key="PartStyle" TargetType="TextBlock">
+            <Setter Property="Margin" Value="10 0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10 0"/>
+        </Style>
+        <Style x:Key="GlyphPartStyle" TargetType="TextBlock" BasedOn="{StaticResource PartStyle}">
+            <Setter Property="FontFamily" Value="{StaticResource FontAwesome}"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style>
+        <Style x:Key="TextPartStyle" TargetType="TextBlock" BasedOn="{StaticResource PartStyle}">
+            <Setter Property="FontFamily" Value="Segoe UI Black"/>
+            <Setter Property="FontSize" Value="12"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button Style="{StaticResource GhostButton}" Margin="10 7 0 7"
+                BorderBrush="{StaticResource MagentaBrush}" HorizontalAlignment="Left"
+                x:Name="backButton" Click="backButton_Click">
+            <Button.Foreground>
+                <SolidColorBrush Color="{StaticResource Color07}"/>
+            </Button.Foreground>
+            <StackPanel HorizontalAlignment="Center" Margin="3">
+                <TextBlock Text="Back" Style="{StaticResource TextPartStyle}"/>
+                <TextBlock Text="&#xf060;" Style="{StaticResource GlyphPartStyle}"/>
+            </StackPanel>
+        </Button>
+        <ScrollViewer Grid.Row="1" Margin="5">
+            <ScrollViewer.Resources>
+                <Style x:Key="Header1" TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="28"/>
+                    <Setter Property="Margin" Value="20 10"/>
+                    <Setter Property="FontFamily" Value="Segoe UI Black"/>
+                </Style>
+                <Style x:Key="Paragraph" TargetType="TextBlock">
+                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="Margin" Value="18 4"/>
+                    <Setter Property="FontFamily" Value="Segoe UI"/>
+                    <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+                    <Setter Property="TextAlignment" Value="Justify"/>
+                </Style>
+                <Style x:Key="Span" TargetType="TextBlock" BasedOn="{StaticResource Paragraph}">
+                    <Setter Property="Margin" Value="0"/>
+                    <Setter Property="FontFamily" Value="Segoe UI Semibold"/>
+                </Style>
+                <Style x:Key="BlueSpan" TargetType="TextBlock" BasedOn="{StaticResource Span}">
+                    <Setter Property="Foreground" Value="{StaticResource BlueBrush}"/>
+                </Style>
+                <Style x:Key="GreenSpan" TargetType="TextBlock" BasedOn="{StaticResource Span}">
+                    <Setter Property="Foreground" Value="{StaticResource GreenBrush}"/>
+                </Style>
+                <Style x:Key="DescImage" TargetType="Image">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="MaxWidth" Value="270"/>
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="Stretch" Value="Uniform"/>
+                </Style>
+            </ScrollViewer.Resources>
+            <StackPanel>
+                <TextBlock Style="{StaticResource Header1}">How to Play</TextBlock>
+                <TextBlock Style="{StaticResource Paragraph}">
+                    Specified dots are drawn, each dot is connected to every other dot by a line.
+                </TextBlock>
+                <Image Style="{StaticResource DescImage}" Source="/Deanor;component/Assets/drawn-dots.PNG"/>
+                <TextBlock Style="{StaticResource Paragraph}">
+                    Two player take turns coloring any uncolored lines. One player color in one color, 
+                    and the other in another color, with each player trying to avoid the creation of triangle
+                    made solely of their color (only triangle with the dots as corners count, intersection
+                    of lines are not relevant), <Bold>the player who complete such triangle loses immediately
+                    </Bold>. The dots position will shuffled each end of turns.
+                </TextBlock>
+                <TextBlock Style="{StaticResource Paragraph}">
+                    The game can end up in tie of there is no uncolored lines left. The players can also
+                    end up the game quickly by clicking surrender, by doing so, that player is defeated.
+                </TextBlock>
+                <TextBlock Style="{StaticResource Header1}">Game Modes</TextBlock>
+                <TextBlock Style="{StaticResource Paragraph}">
+                    You can play this in single player (Versus AI) or multi-player (Versus your friend).
+                </TextBlock>
+                <TextBlock Style="{StaticResource Paragraph}">
+                    You can specify the number of dots in the setting page, after you choose either
+                    <TextBlock Style="{StaticResource BlueSpan}">Versus Player</TextBlock> or 
+                    <TextBlock Style="{StaticResource GreenSpan}">Versus Computer</TextBlock> in main menu,
+                    The number of dots can add up to 4 to 10.
+                </TextBlock>
+                <Image Style="{StaticResource DescImage}" Source="/Deanor;component/Assets/number-of-dots.PNG"/>
+                <TextBlock Style="{StaticResource Paragraph}">
+                    You can change the player's or computer's line color, by clicking the colored hexagonal
+                    right above the player name, then choose the color.
+                </TextBlock>
+                <TextBlock Style="{StaticResource Paragraph}">
+                    There are three different type of AI; Noob AI, Normal AI, and Pro AI, according to their
+                    ability to make decision.
+                </TextBlock>
+                <Image Width="190" Style="{StaticResource DescImage}" Source="/Deanor;component/Assets/ai-level.PNG"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

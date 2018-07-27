@@ -302,7 +302,7 @@
         <StackPanel Orientation="Vertical" Grid.Row="1" Grid.Column="0"
                     x:Name="verticeCountContainer"
                     VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock TextAlignment="Center" Foreground="#ee1d25">Number of Vertices</TextBlock>
+            <TextBlock TextAlignment="Center" Foreground="#ee1d25">Number of Dots</TextBlock>
             <Border BorderThickness="0 0 0 2" BorderBrush="{StaticResource RedBrush}" Margin="0 5 0 0">
                 <StackPanel Orientation="Horizontal" x:Name="verticeCountRBG">
                     <StackPanel.Resources>
@@ -350,7 +350,7 @@
                 <SolidColorBrush Color="{StaticResource Color07}"/>
             </Button.Foreground>
             <StackPanel HorizontalAlignment="Center" Margin="3">
-                <TextBlock Text="Kembali" Style="{StaticResource TextPartStyle}"/>
+                <TextBlock Text="Back" Style="{StaticResource TextPartStyle}"/>
                 <TextBlock Text="&#xf060;" Style="{StaticResource GlyphPartStyle}"/>
             </StackPanel>
         </Button>
@@ -363,7 +363,7 @@
                 <SolidColorBrush Color="{StaticResource Color16}"/>
             </Button.Foreground>
             <StackPanel HorizontalAlignment="Center" Margin="3">
-                <TextBlock Text="Mulai" Style="{StaticResource TextPartStyle}"/>
+                <TextBlock Text="Start" Style="{StaticResource TextPartStyle}"/>
                 <TextBlock Text="&#xf04b;" Style="{StaticResource GlyphPartStyle}"/>
             </StackPanel>
         </Button>

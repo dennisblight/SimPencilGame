@@ -26,6 +26,11 @@ namespace Deanor
         public const string GamePageKey = "gamePage";
         public const string HelpPageKey = "helpPage";
 
+        static App()
+        {
+            //Timeline.DesiredFrameRateProperty.OverrideMetadata(typeof(Timeline), new PropertyMetadata { DefaultValue = 30 });
+        }
+
         public static IGameParameters GameParameters
         {
             get { return SettingSection as IGameParameters; }
@@ -50,6 +55,17 @@ namespace Deanor
                 if (mainPage == null)
                     mainPage = new MainPage();
                 return mainPage;
+            }
+        }
+
+        private static HelpPage helpPage;
+        public static HelpPage HelpPage
+        {
+            get
+            {
+                if (helpPage == null)
+                    helpPage = new HelpPage();
+                return helpPage;
             }
         }
 
@@ -86,7 +102,9 @@ namespace Deanor
                 MainPage.contentGrid.Children.Add(SettingSection);
                 cw.mainGrid.Children.Add(MainPage);
                 cw.mainGrid.Children.Add(GamePage);
+                cw.mainGrid.Children.Add(HelpPage);
                 (GamePage.RenderTransform as TranslateTransform).Y = -cw.ActualHeight;
+                (HelpPage.RenderTransform as TranslateTransform).Y = cw.ActualHeight;
                 (SettingSection.RenderTransform as TranslateTransform).X = cw.ActualWidth;
                 var rand = new Random();
                 var r1 = rand.Next(18);
@@ -124,7 +142,7 @@ namespace Deanor
                                     TransitionLeft(MainPage.contentGrid, MainSection, SettingSection).Begin();
                                     break;
                                 case HelpPageKey:
-                                    /* Not Implemented Yet */
+                                    TransitionUp(cw.mainGrid, MainPage, HelpPage).Begin();
                                     break;
                             }
                         }
@@ -167,6 +185,7 @@ namespace Deanor
                             switch (pageKey)
                             {
                                 case MainPageKey:
+                                    TransitionDown(cw.mainGrid, HelpPage, MainPage).Begin();
                                     break;
                             }
                         }

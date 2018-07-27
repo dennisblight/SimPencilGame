@@ -250,6 +250,9 @@ namespace Deanor.Pages
             surrenderButton.Visibility = Visibility.Visible;
             p1GameState.Visibility = Visibility.Hidden;
             p2GameState.Visibility = Visibility.Hidden;
+            surrenderButton.IsEnabled = true;
+            if (!App.GameParameters.VersusPlayer && !App.GameParameters.Player1First)
+                surrenderButton.IsEnabled = false;
             if (endGameScene != null && mainContainer.Children.Contains(endGameScene.Element))
                 mainContainer.Children.Remove(endGameScene.Element);
             endGameScene = null;
